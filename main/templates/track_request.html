@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Service Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Track Service Request</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Users Name</th>
+                <th>Request Type</th>
+                <th>Details</th>
+                <th>Attachment</th>
+                <th>Status</th>
+                <th>Submission Date</th>
+                <th>Resolution Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service_request in service_requests %}
+            <tr>
+                 <td>{{ service_request.user }}</td>
+                <td>{{ service_request.request_type }}</td>
+                <td>{{ service_request.details }}</td>
+                <td>
+                    {% if service_request.attachment %}
+                    <a href="{{ service_request.attachment.url }}" target="_blank">View Attachment</a>
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>{{ service_request.status }}</td>
+                <td>{{ service_request.submission_date }}</td>
+                <td>{{ service_request.resolution_date|default:"Not Resolved" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
